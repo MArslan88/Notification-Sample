@@ -47,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         *
         * Big Picture Style Notification
         *
+        * Inbox Style Notification
+        *
+        *
+        * setAutoCancel(false)  it will stick the notification in notification panel
+        * setOngoing(true)  it will stick the notification in notification panel for new versions
         * */
 
         Drawable drawable = ResourcesCompat.getDrawable(getResources(),R.drawable.new_icon, null);
@@ -70,6 +75,23 @@ public class MainActivity extends AppCompatActivity {
                 .setBigContentTitle("Image sent by Arslan")
                 .setSummaryText("Image Message");
 
+        // Inbox Style Notification
+        Notification.InboxStyle inboxStyle = new Notification.InboxStyle()
+                .addLine("A")
+                .addLine("B")
+                .addLine("C")
+                .addLine("D")
+                .addLine("E")
+                .addLine("F")
+                .addLine("G")
+                .addLine("H")
+                .addLine("I")
+                .addLine("J")
+                .addLine("K")
+                .setBigContentTitle("Full Message")
+                .setSummaryText("Message from Arslan");
+
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notification = new Notification.Builder(this)
                     .setLargeIcon(largeIcon)
@@ -77,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
                     .setContentText("New Message")
                     .setSubText("New Message from Arslan")
                     .setContentIntent(pendingIntent) // this will open the required INTENT
-                    .setStyle(bigPictureStyle) // this will create a Picture style notification
+                    .setStyle(inboxStyle) // this will create a Picture style notification
+                    .setAutoCancel(false) // this will stick the notification in notification panel
+                    .setOngoing(true) // this will stick the notification in notification panel for new versions
                     .setChannelId(CHANNEL_ID)
                     .build();
             nm.createNotificationChannel(new NotificationChannel(CHANNEL_ID,"New Channel",NotificationManager.IMPORTANCE_HIGH));
@@ -88,7 +112,9 @@ public class MainActivity extends AppCompatActivity {
                     .setContentText("New Message")
                     .setSubText("new Message from Arslan")
                     .setContentIntent(pendingIntent) // this will open the required INTENT
-                    .setStyle(bigPictureStyle) // this will create a Picture style notification
+                    .setStyle(inboxStyle) // this will create a Picture style notification
+                    .setAutoCancel(false) // this will stick the notification in notification panel
+                    .setOngoing(true) // this will stick the notification in notification panel for new versions
                     .build();
         }
 
