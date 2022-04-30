@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         * also create a REQ_CODE for unique request for the pending intent
         * i.e : PendingIntent pendingIntent
         *
+        * Big Picture Style Notification
+        *
         * */
 
         Drawable drawable = ResourcesCompat.getDrawable(getResources(),R.drawable.new_icon, null);
@@ -60,6 +62,14 @@ public class MainActivity extends AppCompatActivity {
         // here 'PendingIntent.FLAG_UPDATE_CURRENT' will update the already existed Intent and will never create multiple instances withing the stack
         PendingIntent pendingIntent = PendingIntent.getActivity(this,REQ_CODE,intentNotify,PendingIntent.FLAG_UPDATE_CURRENT);
 
+        // Big Picture Style
+        Notification.BigPictureStyle bigPictureStyle = new Notification.BigPictureStyle()
+//                .bigPicture(((BitmapDrawable) (ResourcesCompat.getDrawable(getResources(),R.drawable.new_icon, null))).getBitmap())
+                .bigPicture(largeIcon)
+                .bigLargeIcon(largeIcon)
+                .setBigContentTitle("Image sent by Arslan")
+                .setSummaryText("Image Message");
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             notification = new Notification.Builder(this)
                     .setLargeIcon(largeIcon)
@@ -67,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     .setContentText("New Message")
                     .setSubText("New Message from Arslan")
                     .setContentIntent(pendingIntent) // this will open the required INTENT
+                    .setStyle(bigPictureStyle) // this will create a Picture style notification
                     .setChannelId(CHANNEL_ID)
                     .build();
             nm.createNotificationChannel(new NotificationChannel(CHANNEL_ID,"New Channel",NotificationManager.IMPORTANCE_HIGH));
@@ -77,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     .setContentText("New Message")
                     .setSubText("new Message from Arslan")
                     .setContentIntent(pendingIntent) // this will open the required INTENT
+                    .setStyle(bigPictureStyle) // this will create a Picture style notification
                     .build();
         }
 
